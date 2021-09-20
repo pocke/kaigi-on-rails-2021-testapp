@@ -160,6 +160,8 @@ GEM
     stimulus-rails (0.5.3)
       rails (>= 6.0.0)
     thor (1.1.0)
+    trace_location (0.11.0)
+      method_source
     turbo-rails (0.7.13)
       rails (>= 6.0.0)
     tzinfo (2.0.4)
@@ -195,6 +197,7 @@ DEPENDENCIES
   selenium-webdriver
   sqlite3 (~> 1.4)
   stimulus-rails (>= 0.4.0)
+  trace_location
   turbo-rails (>= 0.7.11)
   tzinfo-data
   web-console (>= 4.1.0)
