@@ -1,0 +1,88 @@
+o=Object.new
+Rails.cache.write(o, 42)
+
+TraceLocation.trace(format: :log) do
+  Rails.cache.write(o, 42) 
+end
+
+__END__
+
+Logged by TraceLocation gem at 2021-09-20 20:54:46 +0900
+https://github.com/yhirano55/trace_location
+
+[Tracing events] C: Call, R: Return
+
+C /home/pocke/.rbenv/versions/trunk/lib/ruby/gems/3.1.0/gems/activesupport-7.0.0.alpha2/lib/active_support/cache.rb:494 [ActiveSupport::Cache::Store#write]
+  C /home/pocke/.rbenv/versions/trunk/lib/ruby/gems/3.1.0/gems/activesupport-7.0.0.alpha2/lib/active_support/cache.rb:677 [ActiveSupport::Cache::Store#merged_options]
+  R /home/pocke/.rbenv/versions/trunk/lib/ruby/gems/3.1.0/gems/activesupport-7.0.0.alpha2/lib/active_support/cache.rb:688 [ActiveSupport::Cache::Store#merged_options]
+  C /home/pocke/.rbenv/versions/trunk/lib/ruby/gems/3.1.0/gems/activesupport-7.0.0.alpha2/lib/active_support/cache.rb:768 [ActiveSupport::Cache::Store#instrument]
+    C /home/pocke/.rbenv/versions/trunk/lib/ruby/gems/3.1.0/gems/activesupport-7.0.0.alpha2/lib/active_support/cache.rb:178 [ActiveSupport::Cache::Store#logger]
+    R /home/pocke/.rbenv/versions/trunk/lib/ruby/gems/3.1.0/gems/activesupport-7.0.0.alpha2/lib/active_support/cache.rb:178 [ActiveSupport::Cache::Store#logger]
+    C /home/pocke/.rbenv/versions/trunk/lib/ruby/gems/3.1.0/gems/activesupport-7.0.0.alpha2/lib/active_support/notifications.rb:205 [ActiveSupport::Notifications.instrument]
+      C /home/pocke/.rbenv/versions/trunk/lib/ruby/gems/3.1.0/gems/activesupport-7.0.0.alpha2/lib/active_support/notifications/fanout.rb:86 [ActiveSupport::Notifications::Fanout#listening?]
+        C /home/pocke/.rbenv/versions/trunk/lib/ruby/gems/3.1.0/gems/activesupport-7.0.0.alpha2/lib/active_support/notifications/fanout.rb:77 [ActiveSupport::Notifications::Fanout#listeners_for]
+          C /home/pocke/.rbenv/versions/trunk/lib/ruby/gems/3.1.0/gems/concurrent-ruby-1.1.9/lib/concurrent-ruby/concurrent/map.rb:135 [Concurrent::Map#[]]
+            C /home/pocke/.rbenv/versions/trunk/lib/ruby/gems/3.1.0/gems/concurrent-ruby-1.1.9/lib/concurrent-ruby/concurrent/collection/map/non_concurrent_map_backend.rb:19 [Concurrent::Map#[]]
+            R /home/pocke/.rbenv/versions/trunk/lib/ruby/gems/3.1.0/gems/concurrent-ruby-1.1.9/lib/concurrent-ruby/concurrent/collection/map/non_concurrent_map_backend.rb:21 [Concurrent::Map#[]]
+          R /home/pocke/.rbenv/versions/trunk/lib/ruby/gems/3.1.0/gems/concurrent-ruby-1.1.9/lib/concurrent-ruby/concurrent/map.rb:147 [Concurrent::Map#[]]
+        R /home/pocke/.rbenv/versions/trunk/lib/ruby/gems/3.1.0/gems/activesupport-7.0.0.alpha2/lib/active_support/notifications/fanout.rb:84 [ActiveSupport::Notifications::Fanout#listeners_for]
+      R /home/pocke/.rbenv/versions/trunk/lib/ruby/gems/3.1.0/gems/activesupport-7.0.0.alpha2/lib/active_support/notifications/fanout.rb:88 [ActiveSupport::Notifications::Fanout#listening?]
+      C /home/pocke/.rbenv/versions/trunk/lib/ruby/gems/3.1.0/gems/activesupport-7.0.0.alpha2/lib/active_support/cache.rb:756 [ActiveSupport::Cache::Store#normalize_version]
+        C /home/pocke/.rbenv/versions/trunk/lib/ruby/gems/3.1.0/gems/activesupport-7.0.0.alpha2/lib/active_support/core_ext/object/try.rb:148 [NilClass#try]
+        R /home/pocke/.rbenv/versions/trunk/lib/ruby/gems/3.1.0/gems/activesupport-7.0.0.alpha2/lib/active_support/core_ext/object/try.rb:150 [NilClass#try]
+        C /home/pocke/.rbenv/versions/trunk/lib/ruby/gems/3.1.0/gems/activesupport-7.0.0.alpha2/lib/active_support/cache.rb:760 [ActiveSupport::Cache::Store#expanded_version]
+        R /home/pocke/.rbenv/versions/trunk/lib/ruby/gems/3.1.0/gems/activesupport-7.0.0.alpha2/lib/active_support/cache.rb:766 [ActiveSupport::Cache::Store#expanded_version]
+      R /home/pocke/.rbenv/versions/trunk/lib/ruby/gems/3.1.0/gems/activesupport-7.0.0.alpha2/lib/active_support/cache.rb:758 [ActiveSupport::Cache::Store#normalize_version]
+      C /home/pocke/.rbenv/versions/trunk/lib/ruby/gems/3.1.0/gems/activesupport-7.0.0.alpha2/lib/active_support/cache.rb:919 [ActiveSupport::Cache::Entry#initialize]
+      R /home/pocke/.rbenv/versions/trunk/lib/ruby/gems/3.1.0/gems/activesupport-7.0.0.alpha2/lib/active_support/cache.rb:925 [ActiveSupport::Cache::Entry#initialize]
+      C /home/pocke/.rbenv/versions/trunk/lib/ruby/gems/3.1.0/gems/activesupport-7.0.0.alpha2/lib/active_support/cache.rb:704 [ActiveSupport::Cache::Store#normalize_key]
+        C /home/pocke/.rbenv/versions/trunk/lib/ruby/gems/3.1.0/gems/activesupport-7.0.0.alpha2/lib/active_support/cache.rb:739 [ActiveSupport::Cache::Store#expanded_key]
+          C /home/pocke/.rbenv/versions/trunk/lib/ruby/gems/3.1.0/gems/activesupport-7.0.0.alpha2/lib/active_support/core_ext/object/to_query.rb:7 [Object#to_param]
+          R /home/pocke/.rbenv/versions/trunk/lib/ruby/gems/3.1.0/gems/activesupport-7.0.0.alpha2/lib/active_support/core_ext/object/to_query.rb:9 [Object#to_param]
+        R /home/pocke/.rbenv/versions/trunk/lib/ruby/gems/3.1.0/gems/activesupport-7.0.0.alpha2/lib/active_support/cache.rb:754 [ActiveSupport::Cache::Store#expanded_key]
+        C /home/pocke/.rbenv/versions/trunk/lib/ruby/gems/3.1.0/gems/activesupport-7.0.0.alpha2/lib/active_support/cache.rb:717 [ActiveSupport::Cache::Store#namespace_key]
+          C /home/pocke/.rbenv/versions/trunk/lib/ruby/gems/3.1.0/gems/activesupport-7.0.0.alpha2/lib/active_support/cache.rb:677 [ActiveSupport::Cache::Store#merged_options]
+            C /home/pocke/.rbenv/versions/trunk/lib/ruby/gems/3.1.0/gems/activesupport-7.0.0.alpha2/lib/active_support/cache.rb:691 [ActiveSupport::Cache::Store#normalize_options]
+              C /home/pocke/.rbenv/versions/trunk/lib/ruby/gems/3.1.0/gems/activesupport-7.0.0.alpha2/lib/active_support/core_ext/hash/except.rb:20 [Hash#except!]
+              R /home/pocke/.rbenv/versions/trunk/lib/ruby/gems/3.1.0/gems/activesupport-7.0.0.alpha2/lib/active_support/core_ext/hash/except.rb:23 [Hash#except!]
+            R /home/pocke/.rbenv/versions/trunk/lib/ruby/gems/3.1.0/gems/activesupport-7.0.0.alpha2/lib/active_support/cache.rb:700 [ActiveSupport::Cache::Store#normalize_options]
+          R /home/pocke/.rbenv/versions/trunk/lib/ruby/gems/3.1.0/gems/activesupport-7.0.0.alpha2/lib/active_support/cache.rb:688 [ActiveSupport::Cache::Store#merged_options]
+        R /home/pocke/.rbenv/versions/trunk/lib/ruby/gems/3.1.0/gems/activesupport-7.0.0.alpha2/lib/active_support/cache.rb:734 [ActiveSupport::Cache::Store#namespace_key]
+      R /home/pocke/.rbenv/versions/trunk/lib/ruby/gems/3.1.0/gems/activesupport-7.0.0.alpha2/lib/active_support/cache.rb:706 [ActiveSupport::Cache::Store#normalize_key]
+      C /home/pocke/.rbenv/versions/trunk/lib/ruby/gems/3.1.0/gems/activesupport-7.0.0.alpha2/lib/active_support/cache/memory_store.rb:166 [ActiveSupport::Cache::MemoryStore#write_entry]
+        C /home/pocke/.rbenv/versions/trunk/lib/ruby/gems/3.1.0/gems/activesupport-7.0.0.alpha2/lib/active_support/cache.rb:624 [ActiveSupport::Cache::Store#serialize_entry]
+          C /home/pocke/.rbenv/versions/trunk/lib/ruby/gems/3.1.0/gems/activesupport-7.0.0.alpha2/lib/active_support/cache.rb:677 [ActiveSupport::Cache::Store#merged_options]
+            C /home/pocke/.rbenv/versions/trunk/lib/ruby/gems/3.1.0/gems/activesupport-7.0.0.alpha2/lib/active_support/cache.rb:691 [ActiveSupport::Cache::Store#normalize_options]
+              C /home/pocke/.rbenv/versions/trunk/lib/ruby/gems/3.1.0/gems/activesupport-7.0.0.alpha2/lib/active_support/core_ext/hash/except.rb:20 [Hash#except!]
+              R /home/pocke/.rbenv/versions/trunk/lib/ruby/gems/3.1.0/gems/activesupport-7.0.0.alpha2/lib/active_support/core_ext/hash/except.rb:23 [Hash#except!]
+            R /home/pocke/.rbenv/versions/trunk/lib/ruby/gems/3.1.0/gems/activesupport-7.0.0.alpha2/lib/active_support/cache.rb:700 [ActiveSupport::Cache::Store#normalize_options]
+          R /home/pocke/.rbenv/versions/trunk/lib/ruby/gems/3.1.0/gems/activesupport-7.0.0.alpha2/lib/active_support/cache.rb:688 [ActiveSupport::Cache::Store#merged_options]
+          C /home/pocke/.rbenv/versions/trunk/lib/ruby/gems/3.1.0/gems/activesupport-7.0.0.alpha2/lib/active_support/cache/memory_store.rb:30 [ActiveSupport::Cache::MemoryStore::DupCoder.dump]
+            C /home/pocke/.rbenv/versions/trunk/lib/ruby/gems/3.1.0/gems/activesupport-7.0.0.alpha2/lib/active_support/cache.rb:966 [ActiveSupport::Cache::Entry#compressed?]
+            R /home/pocke/.rbenv/versions/trunk/lib/ruby/gems/3.1.0/gems/activesupport-7.0.0.alpha2/lib/active_support/cache.rb:968 [ActiveSupport::Cache::Entry#compressed?]
+            C /home/pocke/.rbenv/versions/trunk/lib/ruby/gems/3.1.0/gems/activesupport-7.0.0.alpha2/lib/active_support/cache.rb:1000 [ActiveSupport::Cache::Entry#dup_value!]
+              C /home/pocke/.rbenv/versions/trunk/lib/ruby/gems/3.1.0/gems/activesupport-7.0.0.alpha2/lib/active_support/cache.rb:966 [ActiveSupport::Cache::Entry#compressed?]
+              R /home/pocke/.rbenv/versions/trunk/lib/ruby/gems/3.1.0/gems/activesupport-7.0.0.alpha2/lib/active_support/cache.rb:968 [ActiveSupport::Cache::Entry#compressed?]
+            R /home/pocke/.rbenv/versions/trunk/lib/ruby/gems/3.1.0/gems/activesupport-7.0.0.alpha2/lib/active_support/cache.rb:1008 [ActiveSupport::Cache::Entry#dup_value!]
+          R /home/pocke/.rbenv/versions/trunk/lib/ruby/gems/3.1.0/gems/activesupport-7.0.0.alpha2/lib/active_support/cache/memory_store.rb:33 [ActiveSupport::Cache::MemoryStore::DupCoder.dump]
+        R /home/pocke/.rbenv/versions/trunk/lib/ruby/gems/3.1.0/gems/activesupport-7.0.0.alpha2/lib/active_support/cache.rb:631 [ActiveSupport::Cache::Store#serialize_entry]
+        C /home/pocke/.rbenv/versions/trunk/lib/ruby/gems/3.1.0/gems/activesupport-7.0.0.alpha2/lib/active_support/cache/memory_store.rb:139 [ActiveSupport::Cache::MemoryStore#synchronize]
+          C /home/pocke/.rbenv/versions/trunk/lib/ruby/gems/3.1.0/gems/activesupport-7.0.0.alpha2/lib/active_support/cache.rb:955 [ActiveSupport::Cache::Entry#bytesize]
+            C /home/pocke/.rbenv/versions/trunk/lib/ruby/gems/3.1.0/gems/activesupport-7.0.0.alpha2/lib/active_support/cache.rb:927 [ActiveSupport::Cache::Entry#value]
+              C /home/pocke/.rbenv/versions/trunk/lib/ruby/gems/3.1.0/gems/activesupport-7.0.0.alpha2/lib/active_support/cache.rb:966 [ActiveSupport::Cache::Entry#compressed?]
+              R /home/pocke/.rbenv/versions/trunk/lib/ruby/gems/3.1.0/gems/activesupport-7.0.0.alpha2/lib/active_support/cache.rb:968 [ActiveSupport::Cache::Entry#compressed?]
+            R /home/pocke/.rbenv/versions/trunk/lib/ruby/gems/3.1.0/gems/activesupport-7.0.0.alpha2/lib/active_support/cache.rb:929 [ActiveSupport::Cache::Entry#value]
+          R /home/pocke/.rbenv/versions/trunk/lib/ruby/gems/3.1.0/gems/activesupport-7.0.0.alpha2/lib/active_support/cache.rb:964 [ActiveSupport::Cache::Entry#bytesize]
+          C /home/pocke/.rbenv/versions/trunk/lib/ruby/gems/3.1.0/gems/activesupport-7.0.0.alpha2/lib/active_support/cache.rb:955 [ActiveSupport::Cache::Entry#bytesize]
+            C /home/pocke/.rbenv/versions/trunk/lib/ruby/gems/3.1.0/gems/activesupport-7.0.0.alpha2/lib/active_support/cache.rb:927 [ActiveSupport::Cache::Entry#value]
+              C /home/pocke/.rbenv/versions/trunk/lib/ruby/gems/3.1.0/gems/activesupport-7.0.0.alpha2/lib/active_support/cache.rb:966 [ActiveSupport::Cache::Entry#compressed?]
+              R /home/pocke/.rbenv/versions/trunk/lib/ruby/gems/3.1.0/gems/activesupport-7.0.0.alpha2/lib/active_support/cache.rb:968 [ActiveSupport::Cache::Entry#compressed?]
+            R /home/pocke/.rbenv/versions/trunk/lib/ruby/gems/3.1.0/gems/activesupport-7.0.0.alpha2/lib/active_support/cache.rb:929 [ActiveSupport::Cache::Entry#value]
+          R /home/pocke/.rbenv/versions/trunk/lib/ruby/gems/3.1.0/gems/activesupport-7.0.0.alpha2/lib/active_support/cache.rb:964 [ActiveSupport::Cache::Entry#bytesize]
+        R /home/pocke/.rbenv/versions/trunk/lib/ruby/gems/3.1.0/gems/activesupport-7.0.0.alpha2/lib/active_support/cache/memory_store.rb:141 [ActiveSupport::Cache::MemoryStore#synchronize]
+      R /home/pocke/.rbenv/versions/trunk/lib/ruby/gems/3.1.0/gems/activesupport-7.0.0.alpha2/lib/active_support/cache/memory_store.rb:181 [ActiveSupport::Cache::MemoryStore#write_entry]
+    R /home/pocke/.rbenv/versions/trunk/lib/ruby/gems/3.1.0/gems/activesupport-7.0.0.alpha2/lib/active_support/notifications.rb:211 [ActiveSupport::Notifications.instrument]
+  R /home/pocke/.rbenv/versions/trunk/lib/ruby/gems/3.1.0/gems/activesupport-7.0.0.alpha2/lib/active_support/cache.rb:776 [ActiveSupport::Cache::Store#instrument]
+R /home/pocke/.rbenv/versions/trunk/lib/ruby/gems/3.1.0/gems/activesupport-7.0.0.alpha2/lib/active_support/cache.rb:501 [ActiveSupport::Cache::Store#write]
+
+Result: true
